@@ -1,33 +1,6 @@
 import numpy as np
 
 
-def Termdel(signal, output_size=(2, 128), padding=(0, 40)):
-    """
-    Simulate Teminal Deletion of I/Q signals by random cropping
-
-    Parameters:
-    - signal (numpy.ndarray): Input signal data
-    - output_size (tuple): Output size, (height, width)
-    - padding (tuple): containing two elements (padding_top_bottom, padding_left_right), 
-                       specifying the padding amounts for top/bottom and left/right respectively
-
-    Returns:
-    - del_signal (numpy.ndarray): The signal with the terminal deleted
-    """
-    
-    # Pad the signal data, padding value is 0, with the same padding width on both sides
-    padded_signal = np.pad(signal, ((0, 0), (padding[0], padding[0]), (padding[1], padding[1])), mode='constant')
-    
-    # Determine the top-left vertex position of the cropping box
-    top = np.random.randint(0, 2 * padding[0] + 1)
-    left = np.random.randint(0, 2 * padding[1] + 1)
-    
-    # Crop the signal data
-    del_signal = padded_signal[..., top:top + output_size[0], left:left + output_size[1]]
-    
-    return del_signal
-
-
 def Breakage(signal):
     """
     Break a signal into two parts, then apply random width zero-padding to both ends
@@ -133,31 +106,4 @@ def Intdel(signal):
     signal_2[:, insert_point_2:insert_point_2 + remain_signal.shape[1]] = remain_signal
 
     return signal_1, signal_2
-
-
-def Ring(signal):    
-    """
-    Break the signal into two parts and permutate them.
-
-    Parameters:
-    - signal (numpy.ndarray): Input signal sequence with shape (2, 128) (I/Q signals)
-
-    Returns:
-    - ring_signal (numpy.ndarray): The new permutated signal
-    """
-
-    # Generate a random cut point
-    width = signal.shape[1]
-    cut_point = np.random.randint(int(0.4 * width), int(0.6 * width))  
-
-    # Cut the signal into two segments
-    segment1 = signal[:, :cut_point]
-    segment2 = signal[:, cut_point:]
-
-    # Randomly determine the interleaving order of the two segments
-    ring_signal = np.concatenate((segment2, segment1), axis=1)
-
-    return ring_signal
-
-
 

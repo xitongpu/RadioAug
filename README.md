@@ -7,7 +7,7 @@ This repository provides the implementation code for the six radio augmentation 
 - Python ≥ 3.9.0
 
 ## Verification of Experimental Results
-Before running the scripts, you need to download this repository to your local host, and download the RML2016.10A and RML2016.10B datasets from the [DEEPSIG网站](https://www.deepsig.ai/datasets/) website. Move these two datasets to the <datasets> directory.
+Before running the scripts, you need to download this repository to your local host, and download the RML2016.10A and RML2016.10B datasets from the [DEEPSIG](https://www.deepsig.ai/datasets/) website. Move these two datasets to the <datasets> directory.
 
 ### Verification of Experimental Results on CLDNN
 Run the following command in the terminal:
