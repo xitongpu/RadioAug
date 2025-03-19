@@ -1,37 +1,65 @@
-## Instructions：
-This repository provides the implementation code for the six radio augmentation methods proposed in the article, as well as the pre-trained models that achieve state-of-the-art (SOTA) performance. These models are used to verify the authenticity of the experimental results presented in Table 1 of the article. For privacy reasons, the complete code and pre-trained models will be fully available once our article is accepted for publication.
+# Introduction
+
+This repository contains the code implementation for the paper **"Chromosomal Mutation-Inspired Radio Augmentation for Enhanced Automatic Modulation Classification"**, published in the **IEEE Internet of Things Journal**. Inspired by chromosomal mutations, the paper proposes six novel I/Q modulation signal augmentation methods: **Interstitial Deletion**, **Terminal Deletion**, **Inversion**, **Breakage**, **Ring**, and **Translocation**, aimed at enhancing the performance of automatic modulation classification (AMC). This repository provides the implementation of these six data augmentation methods. If you use this work, please cite the following paper:
+
+```bibtex
+@article{pu2024chromosomal,
+  title={Chromosomal Mutation-Inspired Radio Augmentation for Enhanced Automatic Modulation Classification},
+  author={Pu, Xitong and Luo, Chunbo and Yin, Yihao and Liu, Zijian and Luo, Yang},
+  journal={IEEE Internet of Things Journal},
+  volume={11},
+  number={24},
+  pages={41124--41136},
+  year={2024},
+  publisher={IEEE}
+}
+```
 
 ## Environment
-- PyTorch ≥ 1.10.0
-- Numpy ≥ 1.20.0
-- Python ≥ 3.9.0
+The code requires the following dependencies:
 
-## Verification of Experimental Results
-Before running the scripts, you need to download this repository to your local host, and download the RML2016.10A and RML2016.10B datasets from the [DEEPSIG](https://www.deepsig.ai/datasets/) website. Move these two datasets to the <datasets> directory.
+• **PyTorch** ≥ 1.10.0
 
-### Verification of Experimental Results on CLDNN
-Run the following command in the terminal:
-```
-python main_cldnn.py --dataset a --checkpoint ./checkpoints/CLDNN_2016a_all.pth
-```
-This verifies the SOTA results of CLDNN in the "All" scenario on RML2016.10A as shown in Table 1(a) of the article.
+• **Numpy** ≥ 1.20.0
 
-Run the following command in the terminal:
-```
-python main_cldnn.py --dataset b --checkpoint ./checkpoints/CLDNN_2016b_all.pth
-```
-This verifies the SOTA results of CLDNN in the "All" scenario on RML2016.10B as shown in Table 1(b) of the article.
+• **Python** ≥ 3.9.0
 
-## Verification of Experimental Results on TRN
-Run the following command in the terminal:
+## Directory Structure
 ```
-python main_trn.py --dataset a --checkpoint ./checkpoints/TRN_2016a_all.pth
+- checkpoints/       # Pre-trained model files
+- datasets/          # Dataset files
+- models/            # Model scripts
+- dataset2016a.py    # Script for loading RML2016.10A dataset
+- dataset2016b.py    # Script for loading RML2016.10B dataset
+- main_cldnn.py      # Main script for running CLDNN2
+- radioaug.py        # Implementation of radio augmentation methods
 ```
-This verifies the results of TRN in the "All" scenario on RML2016.10A as shown in Table 1(a) of the article.
 
-Run the following command in the terminal:
-```
-python main_trn.py --dataset b --checkpoint ./checkpoints/TRN_2016b_all.pth
-```
-This verifies the results of TRN in the "All" scenario on RML2016.10B as shown in Table 1(b) of the article.
+### Notes:
+• The implementations of the five augmentation methods (**Interstitial Deletion**, **Terminal Deletion**, **Inversion**, **Breakage**, and **Ring**) are centralized in the `radioaug.py` script.
 
+• The **Translocation** method is embedded within the dataset loading scripts (`dataset2016a.py` and `dataset2016b.py`). Users can refer to the comments in these scripts for detailed usage instructions.
+
+## AMC Performance Validation
+Empowered by these six augmentation methods, we achieved **state-of-the-art (SOTA)** performance on the **RML2016.10A** and **RML2016.10B** datasets using the **CLDNN2** model, with accuracies of **67.11%** and **69.02%**, respectively. This repository provides the pre-trained models for both datasets. Follow the steps below to verify the results:
+
+
+1. **Download the Repository and Datasets**:
+
+   • Clone this repository to your local machine.
+
+   • Download the **RML2016.10A** and **RML2016.10B** datasets from the [DEEPSIG](https://www.deepsig.ai/datasets/) website.
+
+   • Place the downloaded datasets into the `<datasets>` directory.
+
+2. **Run the Script**:
+
+   • Execute the following command in the terminal to verify the SOTA results for the **"All"** scenario on the **RML2016.10A** dataset (as shown in Table 1(a) of the paper):
+   ```bash
+   python main_cldnn.py --dataset a --checkpoint ./checkpoints/CLDNN_2016a_all.pth
+   ```
+
+   • Execute the following command in the terminal to verify the SOTA results for the **"All"** scenario on the **RML2016.10B** dataset (as shown in Table 1(b) of the paper):
+   ```bash
+   python main_cldnn.py --dataset b --checkpoint ./checkpoints/CLDNN_2016b_all.pth
+   ```
